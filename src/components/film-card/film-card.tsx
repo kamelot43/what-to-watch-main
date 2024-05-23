@@ -1,6 +1,6 @@
 import Header from '../header/header';
 
-export type FileCardProps = {
+export type FilmCardProps = {
   title: string;
   genre: string;
   year: string;
@@ -8,7 +8,7 @@ export type FileCardProps = {
   pictureUrl: string;
 }
 
-export default function FileCard({title, genre, year, posterUrl, pictureUrl}: FileCardProps) {
+export default function FilmCard({title, genre, year, posterUrl, pictureUrl}: FilmCardProps) {
   return (
     <section className="film-card">
       <div className="film-card__bg">
