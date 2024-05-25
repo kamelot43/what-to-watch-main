@@ -1,15 +1,18 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Main from '../../pages/main/main';
-import {films} from '../../mocks/films';
-import {FilmCardProps} from '../film-card/film-card';
-import MyList from '../../pages/my-list/my-list';
+
 import {AppRoute, AuthorizationStatus} from '../../const';
+
+import Main from '../../pages/main/main';
 import Player from '../../pages/player/player';
 import Film from '../../pages/film/film';
 import AddReview from '../../pages/add-review/add-review';
 import PageNotFound from '../../pages/page-not-found/page-not-found';
 import Login from '../../pages/login/login';
+import MyList from '../../pages/my-list/my-list';
+
+import {FilmCardProps} from '../film-card/film-card';
 import PrivateRoute from '../private-route/private-route';
+import {films} from '../../mocks/films';
 
 const filmCardMock: FilmCardProps = {
   title: 'The Grand Budapest Hotel',
@@ -50,7 +53,7 @@ export default function App() {
           element={<Film films={films} />}
         />
         <Route
-          path={`${AppRoute.Film}/:id/${AppRoute.Review}`}
+          path={`${AppRoute.Film}/:id${AppRoute.Review}`}
           element={<AddReview />}
         />
         <Route
