@@ -49,7 +49,7 @@ export default function Main({films, filmCardProps}: MainProps) {
           </ul>
           <div className="catalog__films-list">
             {films.map((film, idx) =>
-              <SmallFilmCard key={film.id} name={film.name} posterImage={film.posterImage} />
+              <SmallFilmCard key={film.id} name={film.name} previewImage={film.previewImage} />
             )}
           </div>
           <div className="catalog__more">
