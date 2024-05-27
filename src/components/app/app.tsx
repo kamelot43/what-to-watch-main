@@ -15,6 +15,7 @@ import PrivateRoute from '../private-route/private-route';
 import {films} from '../../mocks/films';
 
 const filmCardMock: FilmCardProps = {
+  id: 1,
   title: 'The Grand Budapest Hotel',
   genre: 'Drama',
   year: '2014',
@@ -54,7 +55,13 @@ export default function App() {
         />
         <Route
           path={`${AppRoute.Film}/:id${AppRoute.Review}`}
-          element={<AddReview />}
+          element={
+            <PrivateRoute
+              authorizationStatus={AuthorizationStatus.NoAuth}
+            >
+              <AddReview />
+            </PrivateRoute>
+          }
         />
         <Route
           path="*"

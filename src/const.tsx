@@ -12,3 +12,9 @@ export enum AuthorizationStatus {
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
+
+export enum ButtonsType {
+  Play = 'play',
+  MyList = 'my-list',
+  AddReview = 'add-review'
+}
