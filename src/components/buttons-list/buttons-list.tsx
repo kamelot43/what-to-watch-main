@@ -22,6 +22,7 @@ export default function ButtonsList({id, hideButton}:ButtonListType) {
     e.preventDefault();
     navigate(`${AppRoute.Film}/${id}${AppRoute.Review}`);
   };
+
   return (
     <div className="film-card__buttons">
       {

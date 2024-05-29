@@ -39,7 +39,7 @@ export default function App() {
           path={AppRoute.MyList}
           element={
             <PrivateRoute
-              authorizationStatus={AuthorizationStatus.NoAuth}
+              authorizationStatus={AuthorizationStatus.Auth}
             >
               <MyList films={films} />
             </PrivateRoute>
@@ -47,7 +47,7 @@ export default function App() {
         />
         <Route
           path={`${AppRoute.Player}/:id`}
-          element={<Player />}
+          element={<Player films={films}/>}
         />
         <Route
           path={`${AppRoute.Film}/:id`}
@@ -57,9 +57,9 @@ export default function App() {
           path={`${AppRoute.Film}/:id${AppRoute.Review}`}
           element={
             <PrivateRoute
-              authorizationStatus={AuthorizationStatus.NoAuth}
+              authorizationStatus={AuthorizationStatus.Auth}
             >
-              <AddReview />
+              <AddReview films={films}/>
             </PrivateRoute>
           }
         />
