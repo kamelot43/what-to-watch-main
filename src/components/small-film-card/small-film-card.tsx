@@ -14,13 +14,19 @@ export default function SmallFilmCard({name, previewImage, id, onMouseEnter, onM
     }
   };
 
+  const handleMouseEnter = () => {
+    onMouseEnter(id);
+  };
+
+  const handleMouseLeave = () => {
+    onMouseLeave();
+  };
+
   return (
     <article
       className="small-film-card catalog__films-card"
-      /* eslint-disable */
-      onMouseEnter={() => {onMouseEnter(id);}}
-      /* eslint-disable */
-      onMouseLeave={() => {onMouseLeave();}}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <div className="small-film-card__image" onClick={onClickHandler}>
         <img src={previewImage} alt={name} width={280} height={175} />

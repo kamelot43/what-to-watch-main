@@ -7,13 +7,13 @@ type FilmListProps = {
 }
 
 export default function FilmList({films}: FilmListProps) {
-  const [activeFilm, setActiveFilm] = useState('');
+  const [activeFilm, setActiveFilm] = useState<number | null>(null);
   const onMouseEnterHandler = (id: number) => {
-    setActiveFilm(id.toString());
+    setActiveFilm(id);
   };
 
   const onMouseLeaveHandler = () => {
-    setActiveFilm('');
+    setActiveFilm(null);
   };
 
   /* eslint-disable */
