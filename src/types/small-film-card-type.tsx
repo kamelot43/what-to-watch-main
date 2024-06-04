@@ -1,4 +1,7 @@
 export type SmallFilmCardType = {
-  title: string;
-  picture: string;
+  id: number;
+  name: string;
+  previewImage: string;
+  onMouseEnter: (id: number) => void;
+  onMouseLeave: () => void;
 }

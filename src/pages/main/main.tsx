@@ -1,16 +1,14 @@
-import { useId } from 'react';
 import FilmCard, {FilmCardProps} from '../../components/film-card/film-card';
 import Footer from '../../components/footer/footer';
-import {SmallFilmCardType} from '../../types/small-film-card-type';
-import SmallFilmCard from '../../components/small-film-card/small-film-card';
+import {Film} from '../../types/film';
+import FilmList from '../../components/film-list/film-list';
 
 type MainProps = {
-  films: SmallFilmCardType[];
+  films: Film[];
   filmCardProps: FilmCardProps;
 }
 
 export default function Main({films, filmCardProps}: MainProps) {
-  const id = useId();
   return (
     <>
       <FilmCard {...filmCardProps}/>
@@ -49,11 +47,7 @@ export default function Main({films, filmCardProps}: MainProps) {
               <a href="#" className="catalog__genres-link">Thrillers</a>
             </li>
           </ul>
-          <div className="catalog__films-list">
-            {films.map((film, idx) =>
-              <SmallFilmCard key={id} {...film} />
-            )}
-          </div>
+          <FilmList films={films} />
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
           </div>
