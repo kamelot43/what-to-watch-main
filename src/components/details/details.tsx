@@ -1,4 +1,5 @@
 import {Film} from '../../types/film';
+import {formatRunTime} from '../../helpers/formatRunTime';
 
 export default function Details({starring, director, genre, released, runTime}: Film) {
   return (
@@ -22,7 +23,7 @@ export default function Details({starring, director, genre, released, runTime}: 
       <div className="film-card__text-col">
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Run Time</strong>
-          <span className="film-card__details-value">{runTime}</span>
+          <span className="film-card__details-value">{formatRunTime(runTime)}</span>
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Genre</strong>

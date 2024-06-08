@@ -1,5 +1,5 @@
 import {Film} from '../../types/film';
-import {checkRating} from '../helpers/checkRating';
+import {checkRating} from '../../helpers/checkRating';
 
 export default function Overview({director, starring, rating, description, scoresCount}: Film) {
   return (

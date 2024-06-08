@@ -1,4 +1,4 @@
-import {RatingStatus} from '../../const';
+import {RatingStatus} from '../const';
 
 export const checkRating = (rating: number): string => {
   if (rating >= 0 && rating <= 3) {
