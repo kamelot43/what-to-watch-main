@@ -1,9 +1,11 @@
-import {createAction} from '@reduxjs/toolkit';
+import type { AxiosInstance } from 'axios';
+import {createAction, createAsyncThunk} from '@reduxjs/toolkit';
 import {Film} from '../types/film';
+import {AppRoute} from '../const';
 
 export const Action = {
   SET_GENRE: 'genre/set',
-  SET_FILMS: 'films/set',
+  FETCH_FILMS: 'films/fetch',
   INCREASE_COUNTER: 'counter/increase',
   RESET_COUNTER: 'counter/reset',
 };
@@ -11,4 +13,11 @@ export const Action = {
 export const setGenre = createAction<string>(Action.SET_GENRE);
 export const increaseCounter = createAction(Action.INCREASE_COUNTER);
 export const resetCounter = createAction(Action.RESET_COUNTER);
-export const setFilms = createAction<Film[]>(Action.SET_FILMS);
+
+export const fetchFilms = createAsyncThunk<Film[], void, { extra: AxiosInstance }>(
+  Action.FETCH_FILMS,
+  async (_, { extra: api }) => {
+    const { data } = await api.get<Film[]>(AppRoute.Film);
+
+    return data;
+  });
