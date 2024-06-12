@@ -1,5 +1,5 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {fetchFilms ,setGenre, increaseCounter, resetCounter} from './action';
+import {fetchFilms, setGenre, increaseCounter, resetCounter} from './action';
 import {Genres} from '../const';
 import {Film} from '../types/film';
 
@@ -27,6 +27,7 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(fetchFilms.fulfilled, (state, action) => {
       state.films = action.payload;
+      state.isFilmsLoading = false;
     })
     .addCase(fetchFilms.rejected, (state, action) => {
       state.isFilmsLoading = false;

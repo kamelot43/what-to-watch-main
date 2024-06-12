@@ -1,8 +1,7 @@
 import {configureStore} from '@reduxjs/toolkit';
 import {reducer} from './reducer';
-import {setFilms} from './action';
+import {fetchFilms} from './action';
 import {createAPI} from '../services/api';
-import {films} from '../mocks/films';
 
 const api = createAPI();
 export const store = configureStore({
@@ -13,4 +12,5 @@ export const store = configureStore({
     },
   }),
 });
-store.dispatch(setFilms(films));
+
+store.dispatch(fetchFilms());
