@@ -1,7 +1,8 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {fetchFilms, fetchUserStatus, increaseCounter, resetCounter, setGenre} from './action';
+import {fetchFilms, fetchUserStatus, increaseCounter, resetCounter, setGenre, loginUser} from './action';
 import {AuthorizationStatus, Genres} from '../const';
 import {Film} from '../types/film';
+import {AuthData} from '../types/auth-data';
 
 type State = {
   activeGenre: string;
@@ -9,6 +10,7 @@ type State = {
   isFilmsLoading: boolean;
   counter: number;
   authorizationStatus: AuthorizationStatus;
+  user: AuthData['email'];
 };
 
 const initialState: State = {
@@ -16,6 +18,7 @@ const initialState: State = {
   isFilmsLoading: false,
   films: [],
   counter: 1,
+  user: '',
   authorizationStatus: AuthorizationStatus.NoAuth,
 };
 
@@ -45,5 +48,9 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(fetchUserStatus.rejected, (state) => {
       state.authorizationStatus = AuthorizationStatus.NoAuth;
+    })
+    .addCase(loginUser.fulfilled, (state, action) => {
+      state.user = action.payload?.email;
+      state.authorizationStatus = AuthorizationStatus.Auth;
     });
 });
