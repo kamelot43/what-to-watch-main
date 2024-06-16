@@ -4,7 +4,7 @@ import {Film} from '../types/film';
 import {AppRoute} from '../const';
 import {FetchUser} from '../types/fetch-user';
 import {AuthData} from '../types/auth-data';
-import {saveToken} from '../services/token';
+import {saveToken, dropToken} from '../services/token';
 
 export const Action = {
   SET_GENRE: 'genre/set',
@@ -13,6 +13,7 @@ export const Action = {
   RESET_COUNTER: 'counter/reset',
   FETCH_USER_STATUS: 'user/fetch-status',
   LOGIN_USER: 'user/login',
+  LOGOUT_USER: 'user/logout',
 };
 
 export const setGenre = createAction<string>(Action.SET_GENRE);
@@ -41,5 +42,12 @@ export const loginUser = createAsyncThunk<FetchUser, AuthData, { extra: AxiosIns
     const { data } = await api.post<FetchUser>(AppRoute.Login, {email, password});
     saveToken(data.token);
     return data;
+  });
+
+export const logoutUser = createAsyncThunk<void, void, { extra: AxiosInstance }>(
+  Action.LOGOUT_USER,
+  async (_, { extra: api }) => {
+    await api.delete(AppRoute.Logout);
+    dropToken();
   });
 

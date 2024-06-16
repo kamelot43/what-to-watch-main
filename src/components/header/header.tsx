@@ -1,7 +1,9 @@
+import {MouseEvent} from 'react';
 import {AppRoute} from '../../const';
 import {Link, useNavigate} from 'react-router-dom';
-import {useAppSelector} from '../../hooks';
+import {useAppSelector, useAppDispatch} from '../../hooks';
 import {AuthorizationStatus} from '../../const';
+import {logoutUser} from '../../store/action';
 
 type HeaderProps = {
   title?: string;
@@ -13,6 +15,13 @@ export default function Header({title, extraClass, hideSignIn}: HeaderProps) {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const user = useAppSelector((state) => state.user);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const handleLogout = (e: MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    dispatch(logoutUser());
+  };
+
   return (
     <header className={`page-header ${extraClass ? extraClass : ''}`}>
       <div className="logo">
@@ -33,7 +42,7 @@ export default function Header({title, extraClass, hideSignIn}: HeaderProps) {
             </div>
           </li>
           <li className="user-block__item">
-            <Link className="user-block__link" to={AppRoute.Login}>Sign out</Link>
+            <a className="user-block__link" href="#" onClick={handleLogout}>Sign out</a>
           </li>
         </ul>
       )}

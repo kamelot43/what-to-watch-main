@@ -1,6 +1,7 @@
 export enum AppRoute {
   Root = '/',
   Login = '/login',
+  Logout = '/logout',
   MyList = '/mylist',
   Film = '/films',
   Review = '/review',
@@ -26,6 +27,7 @@ export const CARDS_PER_VIEW = 8;
 export const RATINGS = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
 export const DEFAULT_CHECKED_INDEX = 4;
 export const TABS = ['Overview', 'Details', 'Reviews'];
+export const enum RequestsStatus {Idle, Loading, Success, Failed}
 
 export enum RatingStatus {
   Bad = 'Bad',
