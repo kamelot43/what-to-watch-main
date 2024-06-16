@@ -1,13 +1,16 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {fetchFilms, setGenre, increaseCounter, resetCounter} from './action';
-import {Genres} from '../const';
+import {fetchFilms, fetchUserStatus, increaseCounter, resetCounter, setGenre, loginUser, logoutUser} from './action';
+import {AuthorizationStatus, Genres} from '../const';
 import {Film} from '../types/film';
+import {FetchUser} from '../types/fetch-user';
 
 type State = {
   activeGenre: string;
   films: Film[];
   isFilmsLoading: boolean;
   counter: number;
+  authorizationStatus: AuthorizationStatus;
+  user: FetchUser['avatarUrl'];
 };
 
 const initialState: State = {
@@ -15,6 +18,8 @@ const initialState: State = {
   isFilmsLoading: false,
   films: [],
   counter: 1,
+  user: '',
+  authorizationStatus: AuthorizationStatus.NoAuth,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -37,5 +42,20 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(resetCounter, (state, action) => {
       state.counter = 1;
+    })
+    .addCase(fetchUserStatus.fulfilled, (state, action) => {
+      state.user = action.payload?.avatarUrl;
+      state.authorizationStatus = AuthorizationStatus.Auth;
+    })
+    .addCase(fetchUserStatus.rejected, (state) => {
+      state.authorizationStatus = AuthorizationStatus.NoAuth;
+    })
+    .addCase(loginUser.fulfilled, (state, action) => {
+      state.user = action.payload?.avatarUrl;
+      state.authorizationStatus = AuthorizationStatus.Auth;
+    })
+    .addCase(logoutUser.fulfilled, (state, action) => {
+      state.authorizationStatus = AuthorizationStatus.NoAuth;
+      state.user = '';
     });
 });
