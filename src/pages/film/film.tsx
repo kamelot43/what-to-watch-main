@@ -1,4 +1,5 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
+import {useAppDispatch} from '../../hooks';
 import {useParams} from 'react-router-dom';
 // components
 import Footer from '../../components/footer/footer';
@@ -10,31 +11,42 @@ import ChooseSection from '../../components/choose-section/choose-section';
 // pages
 import PageNotFound from '../page-not-found/page-not-found';
 // const
-import {TABS} from '../../const';
+import {MAX_SIMILAR_FILMS, TABS} from '../../const';
 // hooks
 import {useAppSelector} from '../../hooks';
+import Spinner from '../../components/spinner/spinner';
+import {fetchComments, fetchFilm, fetchSimilarFilms} from '../../store/action';
 
 export default function Film() {
   const {id} = useParams();
+  const dispatch = useAppDispatch();
   const [activeTab, setActiveTab] = useState<string>(TABS[0]);
+  const isFilmLoading = useAppSelector((state) => state.isFilmLoading);
+  const film = useAppSelector((state) => state.film);
+  const similarFilms = useAppSelector((state) => state.similarFilms.filter((currentFilm) => film && currentFilm.id !== film.id).slice(0, MAX_SIMILAR_FILMS));
+  const comments = useAppSelector((state) => state.comments);
 
   const handleTabClick = (value: string) => {
     setActiveTab(value);
   };
 
-  const currentFilm = useAppSelector((state) => state.films.find((film) => (
-    film.id === Number(id))
-  ));
+  useEffect(() => {
+    Promise.all([
+      dispatch(fetchFilm(Number(id))),
+      dispatch(fetchSimilarFilms(Number(id))),
+      dispatch(fetchComments(Number(id)))
+    ]);
+  }, [id, dispatch]);
 
-  const films = useAppSelector((state) => state.films);
-
-  if (!currentFilm) {
+  if (!film) {
     return (
       <PageNotFound />
     );
   }
 
-  const filteredFilms = films.filter((film) => film.genre === currentFilm.genre && film.id !== currentFilm.id).splice(0,4);
+  if (isFilmLoading) {
+    return <Spinner />;
+  }
 
   const {
     name,
@@ -43,7 +55,7 @@ export default function Film() {
     backgroundColor,
     genre,
     released,
-  } = currentFilm;
+  } = film;
 
   const filmStyle = {
     backgroundColor,
@@ -83,7 +95,11 @@ export default function Film() {
 
             <div className="film-card__desc">
               <Tabs activeTab={activeTab} onClick={handleTabClick}/>
-              <ChooseSection film={currentFilm} activeSection={activeTab} />
+              <ChooseSection
+                film={film}
+                comments={comments}
+                activeSection={activeTab}
+              />
             </div>
           </div>
         </div>
@@ -92,7 +108,7 @@ export default function Film() {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <FilmList films={filteredFilms} />
+          <FilmList films={similarFilms} />
         </section>
         <Footer/>
       </div>
