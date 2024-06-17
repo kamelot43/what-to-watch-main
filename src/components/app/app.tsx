@@ -59,11 +59,7 @@ export default function App() {
         />
         <Route
           path={`${AppRoute.Film}/:id${AppRoute.Review}`}
-          element={
-            <PrivateRoute>
-              <AddReview />
-            </PrivateRoute>
-          }
+          element={<AddReview />}
         />
         <Route
           path="*"

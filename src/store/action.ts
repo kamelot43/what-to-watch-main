@@ -74,7 +74,7 @@ export const fetchComments = createAsyncThunk<Comment[], Film['id'], { extra: Ax
 export const fetchSimilarFilms = createAsyncThunk<Film[], Film['id'], { extra: AxiosInstance }>(
   Action.FETCH_SIMILAR_FILMS,
   async (id, { extra: api }) => {
-    const { data } = await api.get<Film[]>(`${AppRoute.Film}/${id}/${AppRoute.Similar}`);
+    const { data } = await api.get<Film[]>(`${AppRoute.Film}/${id}${AppRoute.Similar}`);
 
     return data;
   });
