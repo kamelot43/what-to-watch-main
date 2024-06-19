@@ -25,7 +25,9 @@ export default function App() {
   const token = getToken();
 
   useEffect(() => {
-    dispatch(fetchUserStatus());
+    if (token) {
+      dispatch(fetchUserStatus());
+    }
     dispatch(fetchFilms());
   }, [token, dispatch]);
 
