@@ -8,12 +8,24 @@ export enum AppRoute {
   Comments = '/comments',
   Player = '/player',
   Similar = '/similar',
+  Promo = '/promo',
 }
 export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
+
+export enum NameSpace {
+  SiteProcess = 'SITE_PROCESS',
+  Comments = 'COMMENTS',
+  Favorite = 'FAVORITE',
+  Films = 'FILMS',
+  Film = 'FILM',
+  Similar = 'SIMILAR',
+  User = 'USER',
+}
+
 export enum ButtonsType {
   Play = 'play',
   MyList = 'my-list',
