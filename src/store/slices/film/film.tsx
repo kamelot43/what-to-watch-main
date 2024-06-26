@@ -24,7 +24,12 @@ export const filmData = createSlice({
       if (state?.film?.id === action.payload) {
         state.film.isFavorite = !state.film.isFavorite;
       }
-    }
+    },
+    clearFavoriteStatus (state: FilmData) {
+      if (state.film) {
+        state.film.isFavorite = false;
+      }
+    },
   },
   extraReducers(builder) {
     builder
@@ -43,4 +48,4 @@ export const filmData = createSlice({
   }
 });
 
-export const {updateFilm} = filmData.actions;
+export const {updateFilm, clearFavoriteStatus} = filmData.actions;

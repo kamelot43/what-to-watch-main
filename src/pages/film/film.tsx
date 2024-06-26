@@ -27,7 +27,9 @@ export default function Film() {
   const [activeTab, setActiveTab] = useState<string>(TABS[0]);
   const filmStatus = useAppSelector(getFilmStatus);
   const currentFilm = useAppSelector(getFilm);
-  const similarFilms = useAppSelector(getSimilar).slice(0, MAX_SIMILAR_FILMS);
+  const similarFilms = useAppSelector(getSimilar)
+    .filter((film) => film.id !== Number(id))
+    .slice(0, MAX_SIMILAR_FILMS);
   const comments = useAppSelector(getComments);
 
   const handleTabClick = (value: string) => {
