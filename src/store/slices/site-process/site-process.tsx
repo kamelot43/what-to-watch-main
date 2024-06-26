@@ -32,6 +32,11 @@ const siteProcess = createSlice({
     resetCounter (state: SiteProcessData) {
       state.counter = 1;
     },
+    updatePromo (state: SiteProcessData, action: PayloadAction<number | null>) {
+      if (state?.promo?.id === action.payload) {
+        state.promo.isFavorite = !state.promo.isFavorite;
+      }
+    }
   },
   extraReducers(builder) {
     builder
@@ -50,5 +55,5 @@ const siteProcess = createSlice({
   }
 });
 
-export const { setGenre, increaseCounter, resetCounter } = siteProcess.actions;
+export const { setGenre, increaseCounter, resetCounter, updatePromo } = siteProcess.actions;
 export {siteProcess};

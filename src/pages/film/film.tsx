@@ -59,6 +59,7 @@ export default function Film() {
     backgroundColor,
     genre,
     released,
+    isFavorite
   } = currentFilm;
 
   const filmStyle = {
@@ -84,7 +85,7 @@ export default function Film() {
                 <span className="film-card__genre">{genre}</span>
                 <span className="film-card__year">{released}</span>
               </p>
-              <ButtonsList id={Number(id)}/>
+              <ButtonsList id={Number(id)} isFavorite={isFavorite}/>
             </div>
           </div>
         </div>
