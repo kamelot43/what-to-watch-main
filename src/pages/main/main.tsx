@@ -35,7 +35,7 @@ export default function Main() {
     return <LoadingSpinner />;
   }
 
-  if (!promoFilm) {
+  if (promoFilmStatus === RequestsStatus.Failed) {
     return <PageNotFound />;
   }
 
