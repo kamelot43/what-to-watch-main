@@ -1,12 +1,8 @@
 import {useEffect} from 'react';
 import {useAppDispatch} from '../../hooks';
 import {useParams} from 'react-router-dom';
-
-// components
 import VideoPlayer from '../../components/player/player';
-// pages
 import PageNotFound from '../page-not-found/page-not-found';
-// hooks
 import {useAppSelector} from '../../hooks';
 import {getFilm, getFilmStatus} from '../../store/slices/film/selectors';
 import {fetchFilm} from '../../store/thunks/film';
@@ -29,13 +25,15 @@ export default function Player() {
     return <LoadingSpinner/>;
   }
 
-  if (filmStatus === RequestsStatus.Failed || !currentFilm) {
+  if (filmStatus === RequestsStatus.Failed) {
     return (
       <PageNotFound />
     );
   }
 
   return (
-    <VideoPlayer {...currentFilm}/>
+    currentFilm && (
+      <VideoPlayer {...currentFilm}/>
+    )
   );
 }

@@ -3,6 +3,7 @@ export enum AppRoute {
   Login = '/login',
   Logout = '/logout',
   MyList = '/mylist',
+  Favorite = '/favorite',
   Film = '/films',
   Review = '/review',
   Comments = '/comments',
@@ -32,6 +33,16 @@ export enum ButtonsType {
   AddReview = 'add-review'
 }
 
+export const ERROR_MESSAGES = {
+  LOGIN_IS_EMPTY: 'поле не может быть пустым',
+  WRONG_EMAIL_VALUE: 'введен некорректный эмейл',
+  WRONG_PASSWORD_VALUE: 'пароль должен содержать буквы и цифры',
+};
+
+export const MAX_PROGRESS_COUNT = 100;
+export const SECONDS_IN_HOUR = 3600;
+export const MIN_TIME_LIMIT = 10;
+export const TIMEOUT_LIMIT = 1000;
 export const REVIEW_MAX_LENGTH = 400;
 export const REVIEW_MIN_LENGTH = 50;
 export const MIN_RATING = 0;
@@ -43,6 +54,7 @@ export const DEFAULT_CHECKED_INDEX = 4;
 export const MAX_SIMILAR_FILMS = 4;
 export const TABS = ['Overview', 'Details', 'Reviews'];
 export const enum RequestsStatus {Idle, Loading, Success, Failed}
+export const enum FavoriteStatus { Removed, Added }
 
 export enum RatingStatus {
   Bad = 'Bad',

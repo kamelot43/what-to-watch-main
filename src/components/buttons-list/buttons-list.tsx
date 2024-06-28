@@ -2,25 +2,41 @@ import {ButtonsType} from '../../const';
 import {useNavigate} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import {MouseEvent} from 'react';
-import {Add, Play} from '../icons/icons';
-import {useAppSelector} from '../../hooks';
+import {Add, Play, InList} from '../icons/icons';
+import {useAppSelector, useAppDispatch} from '../../hooks';
 import {AuthorizationStatus} from '../../const';
 import {getAuthorizationStatus} from '../../store/slices/user/selectors';
+import {changeFavoriteStatus} from '../../store/thunks/favorite';
+import {updatePromo} from '../../store/slices/site-process/site-process';
+import {updateFilm} from '../../store/slices/film/film';
 
 type ButtonListType = {
   id: number;
   hideButton?: ButtonsType;
+  isFavorite: boolean;
 }
 
-export default function ButtonsList({id, hideButton}:ButtonListType) {
+export default function ButtonsList({id, hideButton, isFavorite}:ButtonListType) {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const handlePlay = () => {
     navigate(`${AppRoute.Player}/${id}`);
   };
 
-  const handleList = () => {
-    navigate(`${AppRoute.MyList}`);
+  const handleFavoriteChange = (e: MouseEvent) => {
+
+    e.preventDefault();
+
+    if (authorizationStatus !== AuthorizationStatus.Auth) {
+      return navigate(`${AppRoute.Login}`);
+    }
+
+    dispatch(changeFavoriteStatus({id, status: Number(!isFavorite)}))
+      .then(() => {
+        dispatch(updatePromo(id));
+        dispatch(updateFilm(id));
+      });
   };
 
   const handleAddReview = (e: MouseEvent<HTMLAnchorElement>) => {
@@ -39,8 +55,8 @@ export default function ButtonsList({id, hideButton}:ButtonListType) {
       }
       {
         hideButton !== ButtonsType.MyList &&
-          <button className="btn btn--list film-card__button" type="button" onClick={handleList}>
-            <Add/>
+          <button className="btn btn--list film-card__button" type="button" onClick={handleFavoriteChange}>
+            {isFavorite ? <InList/> : <Add/>}
             <span>My list</span>
           </button>
       }

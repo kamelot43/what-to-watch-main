@@ -1,16 +1,13 @@
 import {useEffect, useState} from 'react';
 import {useAppDispatch} from '../../hooks';
 import {useParams} from 'react-router-dom';
-// components
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import ButtonsList from '../../components/buttons-list/buttons-list';
 import FilmList from '../../components/film-list/film-list';
 import Tabs from '../../components/tabs/tabs';
 import ChooseSection from '../../components/choose-section/choose-section';
-// const
 import {MAX_SIMILAR_FILMS, RequestsStatus, TABS} from '../../const';
-// hooks
 import {useAppSelector} from '../../hooks';
 import {fetchSimilarFilms} from '../../store/thunks/similar';
 import {fetchComments} from '../../store/thunks/comments';
@@ -27,7 +24,9 @@ export default function Film() {
   const [activeTab, setActiveTab] = useState<string>(TABS[0]);
   const filmStatus = useAppSelector(getFilmStatus);
   const currentFilm = useAppSelector(getFilm);
-  const similarFilms = useAppSelector(getSimilar).slice(0, MAX_SIMILAR_FILMS);
+  const similarFilms = useAppSelector(getSimilar)
+    .filter((film) => film.id !== Number(id))
+    .slice(0, MAX_SIMILAR_FILMS);
   const comments = useAppSelector(getComments);
 
   const handleTabClick = (value: string) => {
@@ -59,6 +58,7 @@ export default function Film() {
     backgroundColor,
     genre,
     released,
+    isFavorite
   } = currentFilm;
 
   const filmStyle = {
@@ -84,7 +84,7 @@ export default function Film() {
                 <span className="film-card__genre">{genre}</span>
                 <span className="film-card__year">{released}</span>
               </p>
-              <ButtonsList id={Number(id)}/>
+              <ButtonsList id={Number(id)} isFavorite={isFavorite}/>
             </div>
           </div>
         </div>

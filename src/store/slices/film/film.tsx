@@ -1,10 +1,10 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {Film} from '../../../types/film';
 import {RequestsStatus} from '../../../const';
 import {NameSpace} from '../../../const';
 import {fetchFilm} from '../../thunks/film';
 
-export type FilmData = {
+type FilmData = {
   film: Film | null;
   status: RequestsStatus;
   hasError: boolean;
@@ -19,7 +19,18 @@ const initialState: FilmData = {
 export const filmData = createSlice({
   name: NameSpace.Film,
   initialState,
-  reducers: {},
+  reducers: {
+    updateFilm (state: FilmData, action: PayloadAction<number | null>) {
+      if (state?.film?.id === action.payload) {
+        state.film.isFavorite = !state.film.isFavorite;
+      }
+    },
+    clearFavoriteStatus (state: FilmData) {
+      if (state.film) {
+        state.film.isFavorite = false;
+      }
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchFilm.pending, (state) => {
@@ -36,3 +47,5 @@ export const filmData = createSlice({
       });
   }
 });
+
+export const {updateFilm, clearFavoriteStatus} = filmData.actions;
