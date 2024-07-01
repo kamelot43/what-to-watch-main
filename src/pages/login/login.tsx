@@ -59,7 +59,7 @@ export default function Login() {
       <Header extraClass="user-page__head" title="Sign In" hideSignIn/>
       <div className="sign-in user-page__content">
         <form action="#" method="post" className="sign-in__form" onSubmit={handleSubmit}>
-          {!isValid &&
+          {!isValid(loginData) &&
             Object.values(errorMessage).map((message) => (
               <div className="sign-in__message" key={message}>
                 <p>{message}</p>
