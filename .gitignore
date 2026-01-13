@@ -11,6 +11,8 @@
 # production
 /build
 
+/markup
+
 # misc
 Thumbs.db
 .DS_Store
