@@ -9,7 +9,7 @@ export default function Footer() {
         </a>
       </div>
       <div className="copyright">
-        <p>© 2019 What to watch Ltd.</p>
+        <p>© 2026 What to watch Ltd.</p>
       </div>
     </footer>
   );
